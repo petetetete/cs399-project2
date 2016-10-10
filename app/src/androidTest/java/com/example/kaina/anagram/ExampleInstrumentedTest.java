@@ -1,4 +1,4 @@
-package cs399.anagram;
+package com.example.kaina.anagram;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("cs399.anagram", appContext.getPackageName());
+        assertEquals("com.example.kaina.anagram", appContext.getPackageName());
     }
 }

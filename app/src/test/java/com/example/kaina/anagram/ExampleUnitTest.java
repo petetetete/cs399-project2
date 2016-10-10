@@ -1,4 +1,4 @@
-package cs399.anagram;
+package com.example.kaina.anagram;
 
 import org.junit.Test;
 

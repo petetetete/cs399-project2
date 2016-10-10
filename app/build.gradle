@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "cs399.anagram"
-        minSdkVersion 16
+        applicationId "com.example.kaina.anagram"
+        minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"

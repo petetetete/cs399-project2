@@ -1,11 +1,10 @@
-package cs399.anagram;
+package com.example.kaina.anagram;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,21 +17,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavigationListeners() {
-        // Add categories navigation
-        findViewById(R.id.categories).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Categories.class);
-                startActivity(i);
+                Intent intent = new Intent(getApplicationContext(), CategoriesActivity.class);
+                startActivity(intent);
             }
         });
 
-        // Add about navigation
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), About.class);
-                startActivity(i);
+                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(intent);
             }
         });
     }
