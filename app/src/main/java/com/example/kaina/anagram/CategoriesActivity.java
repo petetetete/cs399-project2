@@ -8,6 +8,8 @@ import android.widget.Button;
 
 public class CategoriesActivity extends AppCompatActivity {
 
+    private int[] categories = {R.id.foodsCategory, R.id.animalsCategory};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,12 +21,22 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     private void initNavigationListeners() {
-        findViewById(R.id.foodCategory).setOnClickListener(new View.OnClickListener() {
+        // Create a generic listener to be applied to all levels
+        View.OnClickListener listen = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LevelActivity.class);
-                startActivity(intent);
+            public void onClick(View e) {
+                Button button = (Button) e;
+
+                // Create intent and bundle to be passed to levels activity
+                Intent i = new Intent(getApplicationContext(), LevelActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("category", button.getText().toString());
+                i.putExtras(bundle);
+                startActivity(i);
             }
-        });
+        };
+
+        // Iterate through all levels and apply listener
+        for (int id : categories) findViewById(id).setOnClickListener(listen);
     }
 }

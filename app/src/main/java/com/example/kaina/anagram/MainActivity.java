@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavigationListeners() {
+        // Set play button listener
         findViewById(R.id.play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set about button listener
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

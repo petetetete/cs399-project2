@@ -16,15 +16,26 @@
         android:text="Info: Activity to select the category of words to pool from"
         android:textSize="18sp"
         android:textAlignment="center"
-        android:id="@+id/textView9" />
-
-    <Button
-        android:text="Food"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/foodCategory"
-        android:layout_below="@+id/textView9"
+        android:id="@+id/textView9"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="Foods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodsCategory"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Animals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/animalsCategory"
+        android:layout_below="@+id/foodsCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

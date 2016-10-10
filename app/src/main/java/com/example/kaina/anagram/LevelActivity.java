@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class LevelActivity extends AppCompatActivity {
+
+    private int[] levels = {R.id.levelButton0, R.id.levelButton1};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,16 +18,30 @@ public class LevelActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back navigation
 
+        // Get data passed into activity
+        Intent intentExtras = getIntent();
+        Bundle extrasBundle = intentExtras.getExtras();
+
+        // Set current category text by data passed in
+        TextView currCategory = (TextView) findViewById(R.id.currCategory);
+        if (extrasBundle != null) currCategory.setText(extrasBundle.getString("category"));
+        else currCategory.setVisibility(View.INVISIBLE);
+
         initNavigationListeners();
     }
 
     private void initNavigationListeners() {
-        findViewById(R.id.levelButton).setOnClickListener(new View.OnClickListener() {
+
+        // Create a generic listener to be applied to all levels
+        View.OnClickListener listen = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                startActivity(intent);
+            public void onClick(View e) {
+                Intent i = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(i);
             }
-        });
+        };
+
+        // Iterate through all levels and apply listener
+        for (int id : levels) findViewById(id).setOnClickListener(listen);
     }
 }

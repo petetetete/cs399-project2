@@ -11,19 +11,41 @@
     tools:context="com.example.kaina.anagram.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Info: Activity for selecting the current level"
         android:textSize="18sp"
         android:textAlignment="center"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
+    <TextView
+        android:text="#CATEGORY#"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/currCategory"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Level Two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/levelButton1"
+        android:layout_below="@+id/levelButton0"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:text="Level One"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/levelButton"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_below="@+id/textView" />
+        android:id="@+id/levelButton0"
+        android:layout_below="@+id/currCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
