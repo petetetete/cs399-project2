@@ -13,6 +13,8 @@ public class LevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back navigation
+
         initNavigationListeners();
     }
 

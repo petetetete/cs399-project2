@@ -11,14 +11,33 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity"></activity>
-        <activity android:name=".CategoriesActivity"></activity>
-        <activity android:name=".LevelActivity"></activity>
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".GameActivity"
+            android:label="Game">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LevelActivity" />
+        </activity>
+        <activity android:name=".CategoriesActivity"
+            android:label="Categories">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".LevelActivity"
+            android:label="Levels">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoriesActivity" />
+        </activity>
+        <activity android:name=".AboutActivity"
+            android:label="About">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
