@@ -14,7 +14,7 @@ import java.util.logging.Level;
 public class CategoriesActivity extends AppCompatActivity {
 
     private int[] categories = {R.id.foodsCategory, R.id.animalsCategory};
-    private MainGlobal mainGlobal = ((MainGlobal) getApplicationContext());
+    private MainGlobal mainGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,8 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back navigation
+
+        this.mainGlobal =  ((MainGlobal) this.getApplication());
 
         initNavigationListeners();
     }

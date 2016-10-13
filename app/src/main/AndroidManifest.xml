@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".MainGlobal"
         android:icon="@mipmap/ic_launcher"
         android:label="Anagram Game"
         android:supportsRtl="true"
