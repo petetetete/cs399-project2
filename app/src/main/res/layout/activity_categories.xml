@@ -10,41 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.kaina.anagram.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Info: Activity to select the category of words to pool from"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:id="@+id/textView9"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Foods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/foodsCategory"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Animals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/animalsCategory"
-        android:layout_below="@+id/foodsCategory"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/animalsCategory"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/textView9"
-        android:id="@+id/buttonLayout"></LinearLayout>
+        android:id="@+id/buttonLayout"
+        android:layout_below="@+id/categoryDisplay">
+    </LinearLayout>
 </RelativeLayout>

@@ -13,7 +13,6 @@ import java.util.logging.Level;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    private int[] categories = {R.id.foodsCategory, R.id.animalsCategory};
     private MainGlobal mainGlobal;
 
     @Override
@@ -22,47 +21,34 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back navigation
+        this.mainGlobal = ((MainGlobal) this.getApplication());
 
-        this.mainGlobal =  ((MainGlobal) this.getApplication());
-
-        initNavigationListeners();
+        initButtons();
     }
 
     private void initButtons() {
+        LinearLayout ll = (LinearLayout) findViewById(R.id.buttonLayout); // Save layout where buttons will be added
         for (int i = 0; i < mainGlobal.globalData.length; i++) {
+
+            // Save variables for future use
             Button nb = new Button(this);
-            nb.setText(mainGlobal.globalData[i].getTitle());
+            final int catIndex = i;
+
+            nb.setText(mainGlobal.globalData[i].getTitle()); // Set button text
 
             nb.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(), LevelActivity.class);
-                    startActivity(i);
+                    mainGlobal.setCategory(catIndex);
+
+                    // Create intent to navigate to levels activity
+                    Intent intent = new Intent(getApplicationContext(), LevelActivity.class);
+                    startActivity(intent);
                 }
             });
 
-            LinearLayout ll = (LinearLayout) findViewById(R.id.buttonLayout);
+            // Change button properties
             ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.addView(nb, lp);
         }
-    }
-
-    private void initNavigationListeners() {
-        // Create a generic listener to be applied to all levels
-        View.OnClickListener listen = new View.OnClickListener() {
-            @Override
-            public void onClick(View e) {
-                Button button = (Button) e;
-
-                // Create intent and bundle to be passed to levels activity
-                Intent i = new Intent(getApplicationContext(), LevelActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("category", button.getText().toString());
-                i.putExtras(bundle);
-                startActivity(i);
-            }
-        };
-
-        // Iterate through all levels and apply listener
-        for (int id : categories) findViewById(id).setOnClickListener(listen);
     }
 }
