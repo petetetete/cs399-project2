@@ -72,6 +72,12 @@ public class GameActivity extends AppCompatActivity {
         }
         return true;
     }
+    @Override
+    public void onBackPressed() {
+        timerHandler.removeCallbacks(timerRunnable);
+        level.setTime(currTime);
+        super.onBackPressed();
+    }
 
     private void initGame() {
         LinearLayout lw = (LinearLayout) findViewById(R.id.levelWord);
