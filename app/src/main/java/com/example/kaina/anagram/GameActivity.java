@@ -5,9 +5,11 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -54,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
         TextView currLevel = (TextView) findViewById(R.id.currLevel);
         currLevel.setText("Level " + (mainGlobal.getLevel() + 1));
 
-        //initGame();
+        initGame();
     }
 
 
@@ -75,11 +77,17 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout lw = (LinearLayout) findViewById(R.id.levelWord);
         LinearLayout ll = (LinearLayout) findViewById(R.id.levelLetters);
         for (int i = 0; i < level.getWord().length(); i++) {
-            TextView letter = new TextView(this);
-            letter.setText(level.getWord().charAt(i));
+            // Create word buttons
+            Button l1 = new Button(this);
+            l1.setText(level.getWord().charAt(i) + "");
+            l1.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT, 1f));
+            lw.addView(l1);
 
-            ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-            lw.addView(letter, lp);
+            // Create letter button
+            Button l2 = new Button(this);
+            l2.setText(level.getWord().charAt(i) + "");
+            l2.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT, 1f));
+            ll.addView(l2, new Random().nextInt(lw.getChildCount()));
         }
     }
 }
