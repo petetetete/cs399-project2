@@ -42,63 +42,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:id="@+id/levelWord"
-            android:orientation="horizontal">
-            <!--<Button
-                android:background="@drawable/button_operations_alt"
-                android:layout_width="0dp"
+            android:layout_weight="1.5">
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/backspace"
-                android:text="←"
-                android:textColor="#212121"
-                android:textSize="24dp" />
-            <Button
-                android:background="@drawable/button_operations_alt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/clear"
-                android:text="C"
-                android:textColor="#212121"
-                android:textSize="24dp" />
-            <Button
-                android:background="@drawable/button_operations_alt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/percent"
-                android:text="%"
-                android:textColor="#212121"
-                android:textSize="24dp" />
-            <Button
-                android:background="@drawable/button_operations"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/divide"
-                android:text="÷"
-                android:textSize="24dp" />-->
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/levelStatus"
+                android:textSize="30sp"
+                android:gravity="center" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:id="@+id/levelWord"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:id="@+id/levelLetters"
             android:orientation="horizontal">
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1.5">
+            <Button
+                android:text="Previous Level"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/prevLevel"
+                android:layout_weight="1"
+                android:textSize="14sp" />
             <Button
                 android:text="Next Level"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/nextLevel"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 

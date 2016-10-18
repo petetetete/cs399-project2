@@ -76,13 +76,16 @@ class Level {
 
     private String word;
     private long time;
+    private boolean completed;
 
     Level(String word) {
         this.word = word;
         this.time = 0;
+        this.completed = false;
     }
 
     public void setTime(long t) { time = t; }
+    public void setCompleted() { completed = true; }
 
     public String getWord() {
         return word;
@@ -96,4 +99,5 @@ class Level {
         seconds = seconds % 60;
         return String.format("%d:%02d", minutes, seconds);
     }
+    public boolean isCompleted() { return completed; }
 }

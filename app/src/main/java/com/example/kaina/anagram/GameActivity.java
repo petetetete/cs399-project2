@@ -2,22 +2,38 @@ package com.example.kaina.anagram;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.content.res.TypedArrayUtils;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
     private MainGlobal mainGlobal;
     private Level level;
+    private String[] currGuess;
+
+    private TextView timerTextView;
+    private TextView levelStatus;
+    private LinearLayout wordLayout;
+    private LinearLayout letterLayout;
 
     // Timer shenanigans
-    TextView timerTextView;
     long startTime = 0;
     long oldTime = 0;
     long currTime = 0;
@@ -45,16 +61,12 @@ public class GameActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back navigation
         mainGlobal = ((MainGlobal) this.getApplication());
-        level = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[mainGlobal.getLevel()];
 
+        // Grab views from display
         timerTextView = (TextView) findViewById(R.id.levelTimer);
-        startTime = System.currentTimeMillis();
-        oldTime = level.getTime();
-        timerHandler.postDelayed(timerRunnable, 0);
-
-        // Set current category text by data passed in
-        TextView currLevel = (TextView) findViewById(R.id.currLevel);
-        currLevel.setText("Level " + (mainGlobal.getLevel() + 1));
+        levelStatus = (TextView) findViewById(R.id.levelStatus);
+        wordLayout = (LinearLayout) findViewById(R.id.levelWord);
+        letterLayout = (LinearLayout) findViewById(R.id.levelLetters);
 
         initGame();
     }
@@ -65,8 +77,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                timerHandler.removeCallbacks(timerRunnable);
-                level.setTime(currTime);
+                stopTimer();
                 finish();
                 break;
         }
@@ -74,26 +85,141 @@ public class GameActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        timerHandler.removeCallbacks(timerRunnable);
-        level.setTime(currTime);
+        stopTimer();
         super.onBackPressed();
     }
 
+    private void updateGuess() {
+        boolean full = true;
+        for (int i = 0; i < wordLayout.getChildCount(); i++) {
+            TextView word = (TextView) wordLayout.getChildAt(i);
+            word.setText(currGuess[i]);
+            if (currGuess[i] == "_") full = false;
+        }
+
+        // Victory achieved
+        if (level.getWord().equals(TextUtils.join("", currGuess))) {
+            levelStatus.setText("Victory!");
+            level.setCompleted();
+            stopTimer();
+        }
+        else if (full) {
+            levelStatus.setText("No dice.");
+        }
+        else levelStatus.setText("");
+    }
+
+    // Method used to add letter to selected
+    private void addLetter(String letter) {
+        for (int i = 0; i < currGuess.length; i++) {
+            if (currGuess[i] == "_") {
+                currGuess[i] = letter;
+                break;
+            }
+        }
+    }
+
+    // Method used to remove letter from selected
+    private void removeLetter(String letter) {
+        for (int i = 0; i < letterLayout.getChildCount(); i++) {
+            TextView word = (TextView) letterLayout.getChildAt(i);
+            if (word.getText() == letter && !word.isEnabled()) {
+                word.setEnabled(true);
+                break;
+            }
+        }
+    }
+
+    // Method used to stop timer
+    private void stopTimer() {
+        timerHandler.removeCallbacks(timerRunnable);
+        level.setTime(currTime);
+    }
+
     private void initGame() {
-        LinearLayout lw = (LinearLayout) findViewById(R.id.levelWord);
-        LinearLayout ll = (LinearLayout) findViewById(R.id.levelLetters);
+        // Save current level as a global variable
+        level = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[mainGlobal.getLevel()];
+
+        // Start timer
+        startTime = System.currentTimeMillis();
+        oldTime = level.getTime();
+        timerHandler.postDelayed(timerRunnable, 0);
+
+        // Reset current guess
+        currGuess = new String[level.getWord().length()];
+        Arrays.fill(currGuess, "_");
+
+        // Set current category text by data passed in
+        TextView currLevel = (TextView) findViewById(R.id.currLevel);
+        currLevel.setText("Level " + (mainGlobal.getLevel() + 1));
+
+        // Reset and create layouts
+        wordLayout.removeAllViews();
+        letterLayout.removeAllViews();
         for (int i = 0; i < level.getWord().length(); i++) {
-            // Create word buttons
-            Button l1 = new Button(this);
-            l1.setText(level.getWord().charAt(i) + "");
+
+            // Create word displays
+            final int letterIndex = i;
+            TextView l1 = new TextView(this);
+            l1.setTextSize(52);
+            l1.setGravity(Gravity.CENTER);
             l1.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT, 1f));
-            lw.addView(l1);
+
+            // Letter button click listener
+            l1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    TextView t = (TextView) v;
+                    if (t.getText() != "_") {
+                        removeLetter(t.getText().toString());
+                        currGuess[letterIndex] = "_";
+                        updateGuess();
+                    }
+                }
+            });
+            wordLayout.addView(l1);
 
             // Create letter button
             Button l2 = new Button(this);
             l2.setText(level.getWord().charAt(i) + "");
+            l2.setTextSize(24);
             l2.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT, 1f));
-            ll.addView(l2, new Random().nextInt(lw.getChildCount()));
+
+            // Letter button click listener
+            l2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Button b = (Button) v;
+                    addLetter(b.getText().toString());
+                    b.setEnabled(false);
+                    updateGuess();
+                }
+            });
+            letterLayout.addView(l2, new Random().nextInt(wordLayout.getChildCount()));
         }
+
+        // Initialize next and previous buttons
+        Button nextLevel = (Button) findViewById(R.id.nextLevel);
+        if (mainGlobal.getLevel() + 1 >= mainGlobal.globalData[mainGlobal.getCategory()].getWords().length) nextLevel.setEnabled(false);
+        else nextLevel.setEnabled(true);
+        nextLevel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mainGlobal.setLevel(mainGlobal.getLevel() + 1);
+                stopTimer();
+                initGame();
+            }
+        });
+
+        Button prevLevel = (Button) findViewById(R.id.prevLevel);
+        if (mainGlobal.getLevel() == 0) prevLevel.setEnabled(false);
+        else prevLevel.setEnabled(true);
+        prevLevel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mainGlobal.setLevel(mainGlobal.getLevel() - 1);
+                stopTimer();
+                initGame();
+            }
+        });
+
+        // Trigger initial update
+        updateGuess();
     }
 }

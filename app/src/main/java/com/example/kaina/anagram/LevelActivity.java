@@ -43,10 +43,18 @@ public class LevelActivity extends AppCompatActivity {
 
             // Save variables for future use
             Button nb = new Button(this);
-            final int levelIndex = i;
-
+            final int levelIndex = i; 
             String time = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getTimeString();
-            nb.setText("Level " + (i+1) + " - " + time); // Set button text
+
+            if (mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].isCompleted()) {
+                nb.setText(mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getWord() + " - " + time);
+                nb.setEnabled(false);
+            }
+            else {
+                nb.setText("Level " + (i+1) + " - " + time); // Set button text
+            }
+
+
 
             nb.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
