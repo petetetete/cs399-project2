@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class MainGlobal extends Application {
 
-    public Category[] globalData = new Category[5]; // Number of categories
+    public Category[] globalData = new Category[6]; // Number of categories
     public int currCategory = 0;
     public int currLevel = 0;
 
@@ -44,6 +44,13 @@ public class MainGlobal extends Application {
                 new Level("spoon"),
                 new Level("pot"),
                 new Level("wisk")
+        });
+        globalData[5] = new Category("Mythical Creatures", new Level[]{
+                new Level("sasquatch"),
+                new Level("pegasus"),
+                new Level("unicorn"),
+                new Level("leprechaun"),
+                new Level("manticore")
         });
     }
 
