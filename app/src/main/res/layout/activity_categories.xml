@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:id="@+id/buttonLayout"
-        android:layout_below="@+id/categoryDisplay">
+        android:id="@+id/buttonLayout">
     </LinearLayout>
 </RelativeLayout>
