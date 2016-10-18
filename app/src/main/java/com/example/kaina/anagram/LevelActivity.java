@@ -2,7 +2,6 @@ package com.example.kaina.anagram;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -43,18 +42,14 @@ public class LevelActivity extends AppCompatActivity {
 
             // Save variables for future use
             Button nb = new Button(this);
-            final int levelIndex = i; 
+            final int levelIndex = i;
             String time = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getTimeString();
 
             if (mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].isCompleted()) {
                 nb.setText(mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getWord() + " - " + time);
                 nb.setEnabled(false);
             }
-            else {
-                nb.setText("Level " + (i+1) + " - " + time); // Set button text
-            }
-
-
+            else nb.setText("Level " + (i+1) + " - " + time); // Set button text
 
             nb.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

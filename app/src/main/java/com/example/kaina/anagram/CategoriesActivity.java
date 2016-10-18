@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.util.logging.Level;
-
 public class CategoriesActivity extends AppCompatActivity {
 
     private MainGlobal mainGlobal;

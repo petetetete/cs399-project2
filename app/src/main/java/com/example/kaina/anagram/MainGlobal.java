@@ -9,7 +9,7 @@ public class MainGlobal extends Application {
     public int currLevel = 0;
 
     public MainGlobal() {
-        // Example of how to add a new category
+        // Declare categories and levels
         globalData[0] = new Category("Foods", new Level[]{
                 new Level("ham"),
                 new Level("apple"),
@@ -54,6 +54,7 @@ public class MainGlobal extends Application {
     public int getLevel() { return currLevel; }
 }
 
+// Class declaring the category object with custom methods and such
 class Category {
 
     private String title;
@@ -72,6 +73,7 @@ class Category {
     }
 }
 
+// Class declaring the level object
 class Level {
 
     private String word;
