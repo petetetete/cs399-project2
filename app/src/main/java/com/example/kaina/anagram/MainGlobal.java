@@ -45,12 +45,12 @@ public class MainGlobal extends Application {
                 new Level("pot"),
                 new Level("wisk")
         });
-        globalData[5] = new Category("Mythical Creatures", new Level[]{
-                new Level("sasquatch"),
-                new Level("pegasus"),
-                new Level("unicorn"),
-                new Level("leprechaun"),
-                new Level("manticore")
+        globalData[5] = new Category("US States", new Level[]{
+                new Level("arizona"),
+                new Level("kansas"),
+                new Level("new jersey"),
+                new Level("colorado"),
+                new Level("connecticut")
         });
     }
 
