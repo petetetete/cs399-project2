@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class MainGlobal extends Application {
 
-    public Category[] globalData = new Category[2]; // Number of categories
+    public Category[] globalData = new Category[5]; // Number of categories
     public int currCategory = 0;
     public int currLevel = 0;
 
@@ -12,11 +12,38 @@ public class MainGlobal extends Application {
         // Example of how to add a new category
         globalData[0] = new Category("Foods", new Level[]{
                 new Level("ham"),
-                new Level("apple")
+                new Level("apple"),
+                new Level("bread"),
+                new Level("juice"),
+                new Level("pasta")
         });
         globalData[1] = new Category("Animals", new Level[]{
                 new Level("dog"),
-                new Level("snake")
+                new Level("snake"),
+                new Level("bird"),
+                new Level("bear"),
+                new Level("worm")
+        });
+        globalData[2] = new Category("Colors", new Level[]{
+                new Level("blue"),
+                new Level("red"),
+                new Level("pink"),
+                new Level("green"),
+                new Level("white")
+        });
+        globalData[3] = new Category("German Words", new Level[]{
+                new Level("apfel"),
+                new Level("hund"),
+                new Level("katze"),
+                new Level("drei"),
+                new Level("gurke")
+        });
+        globalData[4] = new Category("Kitchen Things", new Level[]{
+                new Level("knife"),
+                new Level("fork"),
+                new Level("spoon"),
+                new Level("pot"),
+                new Level("wisk")
         });
     }
 
