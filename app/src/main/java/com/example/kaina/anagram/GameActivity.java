@@ -123,6 +123,24 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    // Method used to scramble the current word
+    private String scrambleWord(Random random, String inputString) {
+
+        // Save constant and variable string arrays
+        char a[] = inputString.toCharArray();
+        char b[] = inputString.toCharArray();
+
+        // Ensure the letters aren't the same
+        while (Arrays.equals(a, b)) {
+            for( int i=0 ; i<a.length-1 ; i++ ) {
+                int j = random.nextInt(a.length-1);
+                char temp = a[i]; a[i] = a[j]; a[j] = temp;
+            }
+        }
+
+        return new String(a);
+    }
+
     // Method used to stop timer
     private void stopTimer() {
         timerHandler.removeCallbacks(timerRunnable);
@@ -132,6 +150,8 @@ public class GameActivity extends AppCompatActivity {
     private void initGame() {
         // Save current level as a global variable
         level = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[mainGlobal.getLevel()];
+        Random r = new Random();
+        String randLevel = scrambleWord(r, level.getWord());
 
         // Start timer
         startTime = System.currentTimeMillis();
@@ -144,7 +164,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Set current category text by data passed in
         TextView currLevel = (TextView) findViewById(R.id.currLevel);
-        currLevel.setText("Level " + (mainGlobal.getLevel() + 1));
+        currLevel.setText(mainGlobal.globalData[mainGlobal.getCategory()].getTitle() + ": level " + (mainGlobal.getLevel() + 1));
 
         // Reset and create layouts
         wordLayout.removeAllViews();
@@ -173,7 +193,7 @@ public class GameActivity extends AppCompatActivity {
 
             // Create letter button
             Button l2 = new Button(this);
-            l2.setText(level.getWord().charAt(i) + "");
+            l2.setText(randLevel.charAt(i) + "");
             l2.setTextSize(24);
             l2.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT, 1f));
 
@@ -186,12 +206,14 @@ public class GameActivity extends AppCompatActivity {
                     updateGuess();
                 }
             });
-            letterLayout.addView(l2, new Random().nextInt(wordLayout.getChildCount()));
+            letterLayout.addView(l2);
         }
 
         // Initialize next and previous buttons
         Button nextLevel = (Button) findViewById(R.id.nextLevel);
-        if (mainGlobal.getLevel() + 1 >= mainGlobal.globalData[mainGlobal.getCategory()].getWords().length) nextLevel.setEnabled(false);
+        if (mainGlobal.getLevel() + 1 >= mainGlobal.globalData[mainGlobal.getCategory()].getWords().length) {
+            nextLevel.setEnabled(false);
+        }
         else nextLevel.setEnabled(true);
         nextLevel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

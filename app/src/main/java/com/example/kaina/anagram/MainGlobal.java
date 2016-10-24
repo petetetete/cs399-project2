@@ -15,7 +15,9 @@ public class MainGlobal extends Application {
                 new Level("apple"),
                 new Level("bread"),
                 new Level("juice"),
-                new Level("pasta")
+                new Level("pasta"),
+                new Level("carrot"),
+                new Level("chicken")
         });
         globalData[1] = new Category("Animals", new Level[]{
                 new Level("dog"),
@@ -46,11 +48,13 @@ public class MainGlobal extends Application {
                 new Level("wisk")
         });
         globalData[5] = new Category("US States", new Level[]{
-                new Level("arizona"),
+                new Level("texas"),
+                new Level("maine"),
                 new Level("kansas"),
-                new Level("new jersey"),
-                new Level("colorado"),
-                new Level("connecticut")
+                new Level("hawaii"),
+                new Level("arizona"),
+                new Level("wyoming"),
+                new Level("virginia")
         });
     }
 
