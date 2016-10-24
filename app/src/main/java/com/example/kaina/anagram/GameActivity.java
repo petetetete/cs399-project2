@@ -132,8 +132,8 @@ public class GameActivity extends AppCompatActivity {
 
         // Ensure the letters aren't the same
         while (Arrays.equals(a, b)) {
-            for( int i=0 ; i<a.length-1 ; i++ ) {
-                int j = random.nextInt(a.length-1);
+            for( int i = 0; i < a.length - 1; i++ ) {
+                int j = random.nextInt(a.length - 1);
                 char temp = a[i]; a[i] = a[j]; a[j] = temp;
             }
         }
@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void initGame() {
         // Save current level as a global variable
-        level = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[mainGlobal.getLevel()];
+        level = mainGlobal.getCurrentLevel();
         Random r = new Random();
         String randLevel = scrambleWord(r, level.getWord());
 
@@ -164,7 +164,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Set current category text by data passed in
         TextView currLevel = (TextView) findViewById(R.id.currLevel);
-        currLevel.setText(mainGlobal.globalData[mainGlobal.getCategory()].getTitle() + ": level " + (mainGlobal.getLevel() + 1));
+        currLevel.setText(mainGlobal.getCurrentCategory().getTitle() + ": level " + (mainGlobal.getLevelIndex() + 1));
 
         // Reset and create layouts
         wordLayout.removeAllViews();
@@ -210,25 +210,38 @@ public class GameActivity extends AppCompatActivity {
         }
 
         // Initialize next and previous buttons
-        Button nextLevel = (Button) findViewById(R.id.nextLevel);
-        if (mainGlobal.getLevel() + 1 >= mainGlobal.globalData[mainGlobal.getCategory()].getWords().length) {
-            nextLevel.setEnabled(false);
+        int li = mainGlobal.getLevelIndex();
+        int pI = -1;
+        int nI = -1;
+        for (int i = 0; i < mainGlobal.getCurrentCategory().getWords().length; i++) {
+            boolean notComplete = !mainGlobal.getCurrentCategory().getWords()[i].isCompleted();
+            if (i < li && notComplete) pI = i;
+            else if (i > li && notComplete) {
+                nI = i;
+                break;
+            }
         }
+        final int prevI = pI;
+        final int nextI = nI;
+
+
+        Button nextLevel = (Button) findViewById(R.id.nextLevel);
+        if (nextI == -1) nextLevel.setEnabled(false);
         else nextLevel.setEnabled(true);
         nextLevel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mainGlobal.setLevel(mainGlobal.getLevel() + 1);
+                mainGlobal.setLevel(nextI);
                 stopTimer();
                 initGame();
             }
         });
 
         Button prevLevel = (Button) findViewById(R.id.prevLevel);
-        if (mainGlobal.getLevel() == 0) prevLevel.setEnabled(false);
+        if (prevI == -1) prevLevel.setEnabled(false);
         else prevLevel.setEnabled(true);
         prevLevel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mainGlobal.setLevel(mainGlobal.getLevel() - 1);
+                mainGlobal.setLevel(prevI);
                 stopTimer();
                 initGame();
             }

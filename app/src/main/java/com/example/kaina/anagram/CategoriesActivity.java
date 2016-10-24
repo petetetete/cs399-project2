@@ -26,13 +26,13 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private void initButtons() {
         LinearLayout ll = (LinearLayout) findViewById(R.id.buttonLayout); // Save layout where buttons will be added
-        for (int i = 0; i < mainGlobal.globalData.length; i++) {
+        for (int i = 0; i < mainGlobal.getCategories().length; i++) {
 
             // Save variables for future use
             Button nb = new Button(this);
             final int catIndex = i;
 
-            nb.setText(mainGlobal.globalData[i].getTitle()); // Set button text
+            nb.setText(mainGlobal.getCategories()[i].getTitle()); // Set button text
 
             nb.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

@@ -24,7 +24,7 @@ public class LevelActivity extends AppCompatActivity {
 
         // Set current category text by data passed in
         TextView currCategory = (TextView) findViewById(R.id.currCategory);
-        currCategory.setText(mainGlobal.globalData[mainGlobal.getCategory()].getTitle());
+        currCategory.setText(mainGlobal.getCurrentCategory().getTitle());
 
         initButtons();
     }
@@ -38,15 +38,15 @@ public class LevelActivity extends AppCompatActivity {
     private void initButtons() {
         LinearLayout ll = (LinearLayout) findViewById(R.id.buttonLayout);
         ll.removeAllViews();
-        for (int i = 0; i < mainGlobal.globalData[mainGlobal.getCategory()].getWords().length; i++) {
+        for (int i = 0; i < mainGlobal.getCurrentCategory().getWords().length; i++) {
 
             // Save variables for future use
             Button nb = new Button(this);
             final int levelIndex = i;
-            String time = mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getTimeString();
+            String time = mainGlobal.getCurrentCategory().getWords()[i].getTimeString();
 
-            if (mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].isCompleted()) {
-                nb.setText(mainGlobal.globalData[mainGlobal.getCategory()].getWords()[i].getWord() + " - " + time);
+            if (mainGlobal.getCurrentCategory().getWords()[i].isCompleted()) {
+                nb.setText(mainGlobal.getCurrentCategory().getWords()[i].getWord() + " - " + time);
                 nb.setEnabled(false);
             }
             else nb.setText("Level " + (i+1) + " - " + time); // Set button text

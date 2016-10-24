@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class MainGlobal extends Application {
 
-    public Category[] globalData = new Category[6]; // Number of categories
+    public Category[] globalData = new Category[7]; // Number of categories
     public int currCategory = 0;
     public int currLevel = 0;
 
@@ -21,31 +21,31 @@ public class MainGlobal extends Application {
         });
         globalData[1] = new Category("Animals", new Level[]{
                 new Level("dog"),
-                new Level("snake"),
                 new Level("bird"),
                 new Level("bear"),
-                new Level("worm")
+                new Level("worm"),
+                new Level("snake")
         });
         globalData[2] = new Category("Colors", new Level[]{
-                new Level("blue"),
                 new Level("red"),
+                new Level("blue"),
                 new Level("pink"),
                 new Level("green"),
                 new Level("white")
         });
         globalData[3] = new Category("German Words", new Level[]{
-                new Level("apfel"),
                 new Level("hund"),
-                new Level("katze"),
                 new Level("drei"),
-                new Level("gurke")
+                new Level("apfel"),
+                new Level("gurke"),
+                new Level("katze")
         });
-        globalData[4] = new Category("Kitchen Things", new Level[]{
-                new Level("knife"),
-                new Level("fork"),
-                new Level("spoon"),
+        globalData[4] = new Category("Kitchen", new Level[]{
                 new Level("pot"),
-                new Level("wisk")
+                new Level("fork"),
+                new Level("wisk"),
+                new Level("knife"),
+                new Level("spoon")
         });
         globalData[5] = new Category("US States", new Level[]{
                 new Level("texas"),
@@ -56,13 +56,32 @@ public class MainGlobal extends Application {
                 new Level("wyoming"),
                 new Level("virginia")
         });
+        globalData[6] = new Category("Countries", new Level[]{
+                new Level("cuba"),
+                new Level("chile"),
+                new Level("haiti"),
+                new Level("canada"),
+                new Level("finland"),
+                new Level("iceland"),
+                new Level("zimbabwe")
+        });
     }
 
     public void setCategory(int index) { currCategory = index; }
     public void setLevel(int index) { currLevel = index; }
 
     public int getCategory() { return currCategory; }
-    public int getLevel() { return currLevel; }
+    public int getLevelIndex() { return currLevel; }
+
+    public Category[] getCategories() {
+        return this.globalData;
+    }
+    public Category getCurrentCategory() {
+        return this.globalData[this.currCategory];
+    }
+    public Level getCurrentLevel() {
+        return this.globalData[this.currCategory].getWords()[this.currLevel];
+    }
 }
 
 // Class declaring the category object with custom methods and such
